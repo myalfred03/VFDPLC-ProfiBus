@@ -1,0 +1,481 @@
+; (c) 2009-2013   Siemens AG
+; Profibus-DP     Device Description File for SINAMICS G120 CU240x-2 DP
+;
+; Firmware Version:      V04.70.83.14
+; Last Change:       20160810
+; Last Change:       20130502
+;=====================================================================================
+;
+#Profibus_DP
+OrderNumber         = "6SL3 244-0BBxx-1PAx"
+
+;--- general ---
+GSD_Revision        = 5
+Vendor_Name         = "Siemens AG"
+Model_Name          = "SINAMICS G120 CU240x-2DP(F) V4.7"
+Info_Text           = "DP-Slave SINAMICS G120 CU240x-2 con interfaccia DP-V2 (comunicazione ciclica, aciclica, slave-to-slave, PROFIsafe)"
+Revision            = "V4.7"
+Ident_Number        = 0x817b
+Protocol_Ident      = 0
+Station_Type        = 0
+FMS_supp            = 0
+Hardware_Release    = "A"
+Software_Release    = "V4.7"
+;
+9.6_supp            = 1
+19.2_supp           = 1
+45.45_supp          = 1
+93.75_supp          = 1
+187.5_supp          = 1
+500_supp            = 1
+1.5M_supp           = 1
+3M_supp             = 1
+6M_supp             = 1
+12M_supp            = 1
+;
+MaxTsdr_9.6         = 15
+MaxTsdr_19.2        = 15
+MaxTsdr_45.45       = 15
+MaxTsdr_93.75       = 15
+MaxTsdr_187.5       = 15
+MaxTsdr_500         = 15
+MaxTsdr_1.5M        = 25
+MaxTsdr_3M          = 50
+MaxTsdr_6M          = 100
+MaxTsdr_12M         = 200
+;
+Redundancy          = 0
+Repeater_Ctrl_Sig   = 2
+24V_Pins            = 0
+;
+Implementation_Type = "DPC31"
+Bitmap_Device       = "si817b_n"
+;Bitmap_Diag         = ""
+;Bitmap_SF           = ""
+;
+;--- slave basic ---
+Freeze_Mode_supp    = 1
+Sync_Mode_supp      = 1
+Auto_Baud_supp      = 1
+Set_Slave_Add_supp  = 0
+Min_Slave_Intervall = 1
+Modular_Station     = 1
+Max_Module          = 6  ; safety, pkw, tel, sic, 2*dxb
+Max_Input_Len       = 44 ; 8 safety + 8 pkw + 2*14 pzd
+Max_Output_Len      = 40 ; 8 safety + 8 pkw + 2*12 pzd
+Max_Data_Len        = 84
+Fail_Safe           = 1
+Max_Diag_Data_Len   = 244
+Modul_Offset        = 1
+Slave_Family        = 1@SINAMICS
+
+;--- GSD R3 slave extensions ---
+DPV1_Slave              = 1
+C1_Read_Write_supp      = 1
+C2_Read_Write_supp      = 1
+C1_Max_Data_Len         = 240
+C2_Max_Data_Len         = 240
+C1_Response_Timeout     = 100
+C2_Response_Timeout     = 100
+C1_Read_Write_required  = 0
+C2_Read_Write_required  = 0
+C2_Max_Count_Channels   = 4
+Max_Initiate_PDU_Length = 52
+DPV1_Data_Types         = 0
+WD_Base_1ms_supp        = 1
+Check_Cfg_Mode          = 0
+Publisher_supp          = 1
+
+;--- GSD R4 slave extensions ---
+Prm_Block_Structure_supp = 1
+Prm_Block_Structure_req  = 0
+
+;--- GSD R5 slave extensions ---
+PrmCmd_supp = 1
+Slave_Redundancy_supp = 1   ;for Y-Link
+Ident_Maintenance_supp = 1
+
+;--- Subscriber ---
+Subscriber_supp          = 1
+DXB_Max_Link_Count       = 4
+DXB_Max_Data_Length      = 16
+DXB_Subscribertable_Block_Location = 0
+
+
+;--- UsrPrmData Definitions ----------------------------------------
+Max_User_Prm_Data_Len      = 115
+Ext_User_Prm_Data_Const(0) = 0x00, 0x00, 0x00
+
+
+;==================================================================
+;---  Modules ---
+; text32 "01234567890123456789012345678901"
+
+; Telegramme ohne Achstrenner (Einachser)
+
+Module = "Canale PKW 4 parole" 0xF3
+990
+Info_Text = "Canale PKW 4 parole, inserire prima di PZD"
+EndModule
+
+Module = "Telegr. standard 1, PZD 2/2" 0xC3,0xC1,0xC1,0xFD,0x00,0x01
+1
+Info_Text = "Telegr. standard 1: regolazione numero di giri, lunghezza PZD 2/2 parole"
+EndModule
+
+Module = "Telegr. standard 20, PZD 2/6" 0xC3,0xC1,0xC5,0xFD,0x00,0x14
+20
+Info_Text = "Telegr. standard 20: regolazione numero di giri, industria di processo, NAMUR, lunghezza PZD 2/6 parole"
+EndModule
+
+Module = "Telegr. SIEMENS 350, PZD 4/4" 0xC3,0xC3,0xC3,0xFD,0x01,0x5E
+350
+Info_Text = "Telegr. SIEMENS 350: regolazione numero di giri, riduzione di coppia, lunghezza PZD 4/4 parole"
+EndModule
+
+Module = "Telegr. SIEMENS 352, PZD 6/6" 0xC3,0xC5,0xC5,0xFD,0x01,0x60
+352
+Info_Text = "Telegr. SIEMENS 352: regolazione numero di giri, Drive ES PCS7, lunghezza PZD 6/6 parole"
+EndModule
+
+Module = "Telegr. SIEMENS 353, PKW+PZD 2/2" 0xF3, 0xC3,0xC1,0xC1,0xFD,0x01,0x61
+353
+Info_Text = "Telegr. SIEMENS 353: regolazione numero di giri, lunghezza PZD 2/2 parole con canale PKW 4 parole"
+EndModule
+
+Module = "Telegr. SIEMENS 354, PKW+PZD 6/6" 0xF3, 0xC3,0xC5,0xC5,0xFD,0x01,0x62
+354
+Info_Text = "Telegr. SIEMENS 354: regolazione numero di giri, PCS7, lunghezza PZD 6/6 parole con canale PKW 4 parole"
+EndModule
+
+Module = "Telegr. libero, PZD 8/8" 0xC3,0xC7,0xC7,0xFD,0x00,0x00
+997
+Info_Text = "Telegr. libero, lunghezza PZD 8/8 parole"
+EndModule
+
+Module = "Telegr. aggiuntivo 700, PZD 0/3" 0x43,0xC2,0xFD,0x02,0xBC
+700
+Info_Text = "Telegr. aggiuntivo 700, Safety Info Channel, lunghezza PZD 0/3 parole"
+EndModule
+
+;--- subscriber modules ---
+
+Module = "Slave-to-slave, PZD 1" 0x81,0xC0,0xF9
+2001
+Info_Text = "Slave-to-slave, ricezione, lunghezza PZD 1 parola"
+Data_Area_Beg
+; text32    "01234567890123456789012345678901"
+Area_Name = "Slave-to-slave"
+Related_Cfg_Identifier = 1
+IO_Direction = 1 ;out
+Length = 2 ;byte
+Consistency = 1
+Publisher_allowed = 1
+DP_Master_allowed = 0
+Data_Type = 6 ;u16
+Data_Area_End
+EndModule
+
+Module = "Slave-to-slave, PZD 2" 0x81,0xC1,0xF9
+2002
+Info_Text = "Slave-to-slave, ricezione, lunghezza PZD 2 parole"
+Data_Area_Beg
+Area_Name = "Slave-to-slave"
+Related_Cfg_Identifier = 1
+IO_Direction = 1 ;out
+Length = 4 ;byte
+Consistency = 1
+Publisher_allowed = 1
+DP_Master_allowed = 0
+Data_Type = 6 ;u16
+Data_Type = 6 ;u16
+Data_Area_End
+EndModule
+
+Module = "Slave-to-slave, PZD 4" 0x81,0xC3,0xF9
+2004
+Info_Text = "Slave-to-slave, ricezione, lunghezza PZD 4 parole"
+Data_Area_Beg
+Area_Name = "Slave-to-slave"
+Related_Cfg_Identifier = 1
+IO_Direction = 1 ;out
+Length = 8 ;byte
+Consistency = 1
+Publisher_allowed = 1
+DP_Master_allowed = 0
+Data_Type = 6 ;u16
+Data_Type = 6 ;u16
+Data_Type = 6 ;u16
+Data_Type = 6 ;u16
+Data_Area_End
+EndModule
+
+;----------------------------------------------------------------------------------
+;--- PROFIsafe ---
+
+PrmText = 1
+Text(0) = "No Check"
+;Text(1) = "Check"
+EndPrmText
+
+PrmText =	2
+;Text(0) = "SIL 1"
+Text(1) = "SIL 2"
+;Text(2) = "SIL 3"
+;Text(3) = "NoSIL"
+EndPrmText
+
+PrmText = 3
+Text(0) = "3 Byte CRC"
+;Text(1) = "2 Byte CRC"
+;Text(2) = "4 Byte CRC"
+;Text(3) = "reserved"
+EndPrmText
+
+PrmText = 4
+;Text(0) = "ParVersion 0"
+Text(1) = "ParVersion 1"
+EndPrmText
+
+;------
+
+ExtUserPrmData = 1 "F_Check_SeqNr"		; reference number 1
+Bit(0) 0 0-0							; default = 0, range 0-0
+Prm_Text_Ref = 1						; reference to text definition 1
+EndExtUserPrmData
+
+ExtUserPrmData = 2 "F_SIL"
+BitArea(2-3) 1 1-1
+Prm_Text_Ref = 2
+EndExtUserPrmData
+
+ExtUserPrmData = 3 "F_CRC_Length"
+BitArea(4-5) 0 0-0
+Prm_Text_Ref = 3
+EndExtUserPrmData
+
+ExtUserPrmData = 4 "F_Par_Version"
+BitArea(6-7) 1 1-1
+Prm_Text_Ref = 4
+EndExtUserPrmData
+
+ExtUserPrmData	 = 5 "F_Source_Add"
+Unsigned16 1 1-65534
+EndExtUserPrmData
+
+ExtUserPrmData = 6 "F_Dest_Add"
+Unsigned16 1 1-65534
+EndExtUserPrmData
+
+ExtUserPrmData = 7 "F_WD_Time"
+Unsigned16 150 1-65535  ;ms
+EndExtUserPrmData
+
+ExtUserPrmData = 8 "F_Par_CRC"
+Unsigned16 0xD6EF 0-65535
+EndExtUserPrmData
+
+ExtUserPrmData = 10 "[SlotNumber]"
+Unsigned8 1 1-254
+EndExtUserPrmData
+
+;-------
+UnitDiagType = 129
+X_Unit_Diag_Area=24-31
+X_Value(64) = "Ind_F e Ind_dest_F diversi"
+X_Value(65) = "Indirizzo destinazione F errato"
+X_Value(66) = "Indirizzo sorgente F errato"
+X_Value(67) = "Valore tempo watchdog=0"
+X_Value(68) = "Livello SIL errato"
+X_Value(69) = "Lunghezza F-CRC errata"
+X_Value(70) = "Versione parametro F errata"
+X_Value(71) = "Errore CRC1"
+X_Value(72) = "Configurazione F incoerente"
+X_Value(73) = "riservato"
+X_Value(74) = "riservato"
+X_Unit_Diag_Area_End
+EndUnitDiagType
+
+
+;--- PROFIsafe telegram 30 ---
+; text32 "01234567890123456789012345678901"
+Module = "Telegr. standard PROFIsafe 30" 0xC6,0x85,0x85,0x05,0x05,0x6e,0x05,0x05,0x6e
+30
+Info_Text = "Telegr. standard PROFIsafe 30: lunghezza F-DI/DO 2/2 byte"
+
+Data_Area_Beg
+Area_Name = "Ricezione PROFIsafe"
+Related_Cfg_Identifier = 1
+IO_Direction = 1 ;out
+Length = 6 ;byte
+Consistency = 1
+Publisher_allowed = 1 ;slave-to-slave
+DP_Master_allowed = 1
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Area_End
+
+Data_Area_Beg
+Area_Name = "Trasmissione PROFIsafe"
+Related_Cfg_Identifier = 1
+IO_Direction = 0 ;in
+Length = 6 ;byte
+Consistency = 1
+Publisher_allowed = 0
+DP_Master_allowed = 1
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Area_End
+
+F_Ext_Module_Prm_Data_Len = 14
+;F_Ext_User_Prm_Data_Const(0) = 0x0e, 0x05, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+F_Ext_User_Prm_Data_Const(0) = 0xE  ;Blocklaenge F-Parameter
+F_Ext_User_Prm_Data_Const(1) = 5    ;Kennung F-Parameter
+F_Ext_User_Prm_Data_Ref(2) = 10   ;Steckplatz des F-Moduls
+F_Ext_User_Prm_Data_Const(3) = 0    ;Specifier
+F_Ext_User_Prm_Data_Const(4) = 0    ;F-Param-Flag 1 default 0x14
+F_Ext_User_Prm_Data_Const(5) = 0    ;F-Param-Flag 2 default 0x00
+F_Ext_User_Prm_Data_Ref(4)  = 1	    ;F-Param 1 Bit 0  , Check Seq No
+F_Ext_User_Prm_Data_Ref(4)  = 2    ;F-Param 1 Bit 2-3, SIL 2
+F_Ext_User_Prm_Data_Ref(4)  = 3    ;F-Param 1 Bit 4-5, CRC length 3 byte
+F_Ext_User_Prm_Data_Ref(5)  = 4    ;F-Param 2 Bit 6-7, PROFIsafe v2.0
+F_Ext_User_Prm_Data_Ref(6)  = 5    ;F-Source-Adr
+F_Ext_User_Prm_Data_Ref(8)  = 6    ;F-Dest-Adr
+F_Ext_User_Prm_Data_Ref(10) = 7    ;F-WD-Time
+F_Ext_User_Prm_Data_Ref(12) = 8    ;F-CRC1
+F_ParamDescCRC=0xC13C
+F_IO_StructureDescCRC=5639
+EndModule
+
+;--- PROFIsafe telegram 900 ---
+; text32 "01234567890123456789012345678901"
+Module = "Telegr. SIEMENS PROFIsafe 900" 0xCA,0x87,0x87,0x05,0x05,0x05,0x05,0x6e,0x05,0x05,0x05,0x05,0x6e
+900
+Info_Text = "Telegr. standard PROFIsafe 900: lunghezza F-DI/DO 4/4 byte"
+
+Data_Area_Beg
+Area_Name = "Ricezione PROFIsafe"
+Related_Cfg_Identifier = 1
+IO_Direction = 1 ;out
+Length = 8 ;byte
+Consistency = 1
+Publisher_allowed = 1 ;slave-to-slave
+DP_Master_allowed = 1
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Area_End
+
+Data_Area_Beg
+Area_Name = "Trasmissione PROFIsafe"
+Related_Cfg_Identifier = 1
+IO_Direction = 0 ;in
+Length = 8 ;byte
+Consistency = 1
+Publisher_allowed = 0
+DP_Master_allowed = 1
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;u8
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Type =  5 ;octet-string
+Data_Area_End
+
+F_Ext_Module_Prm_Data_Len = 14
+;F_Ext_User_Prm_Data_Const(0) = 0x0e, 0x05, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+F_Ext_User_Prm_Data_Const(0) = 0xE  ;Blocklaenge F-Parameter
+F_Ext_User_Prm_Data_Const(1) = 5    ;Kennung F-Parameter
+F_Ext_User_Prm_Data_Ref(2) = 10   ;Steckplatz des F-Moduls
+F_Ext_User_Prm_Data_Const(3) = 0    ;Specifier
+F_Ext_User_Prm_Data_Const(4) = 0    ;F-Param-Flag 1 default 0x14
+F_Ext_User_Prm_Data_Const(5) = 0    ;F-Param-Flag 2 default 0x00
+F_Ext_User_Prm_Data_Ref(4)  = 1	    ;F-Param 1 Bit 0  , Check Seq No
+F_Ext_User_Prm_Data_Ref(4)  = 2    ;F-Param 1 Bit 2-3, SIL 2
+F_Ext_User_Prm_Data_Ref(4)  = 3    ;F-Param 1 Bit 4-5, CRC length 3 byte
+F_Ext_User_Prm_Data_Ref(5)  = 4    ;F-Param 2 Bit 6-7, PROFIsafe v2.0
+F_Ext_User_Prm_Data_Ref(6)  = 5    ;F-Source-Adr
+F_Ext_User_Prm_Data_Ref(8)  = 6    ;F-Dest-Adr
+F_Ext_User_Prm_Data_Ref(10) = 7    ;F-WD-Time
+F_Ext_User_Prm_Data_Ref(12) = 8    ;F-CRC1
+F_ParamDescCRC=0xC13C
+F_IO_StructureDescCRC=47899
+EndModule
+
+;------------------------------------------------------------------------------------
+;--- Diagnosis ---
+
+Diagnostic_Alarm_supp = 1
+Extra_Alarm_SAP_supp = 1 
+Alarm_Sequence_Mode_Count = 0 
+Alarm_Type_Mode_supp = 1
+
+PrmText = 20
+Text(0) = "Inaktiv"
+Text(1) = "Standardalarme (PROFIdrive)"
+EndPrmText
+
+ExtUserPrmData = 20 "Diagnose"
+Unsigned8 0 0-1         ;default = 0, range 0-1
+Prm_Text_Ref = 20       ;reference to text definition 20
+EndExtUserPrmData
+
+Ext_User_Prm_Data_Const(3) = 5        ;len
+Ext_User_Prm_Data_Const(4) = 32       ;block id
+Ext_User_Prm_Data_Const(5) = 0        ;slot
+Ext_User_Prm_Data_Const(6) = 0        ;specifier
+Ext_User_Prm_Data_Ref(7)   = 20       ;selection diagnose level
+
+;---
+; max text len 32  "12345678901234567890123456789012"
+Channel_Diag(16) = "Errore hardware/software"
+Channel_Diag(17) = "Anomalia rete/filtro di rete"
+Channel_Diag(18) = "Tensione del circuito intermedio"
+Channel_Diag(19) = "Anomalia elettronica di potenza"
+Channel_Diag(20) = "Sovratem. componenti elettronica"
+Channel_Diag(21) = "Ril. guasto a terra/cortoc. fasi"
+Channel_Diag(22) = "Sovraccarico motore"
+Channel_Diag(23) = "Comunic. controllore disturbata"
+Channel_Diag(24) = "Errore rilevato da sorv. Safety"
+Channel_Diag(25) = "Errore riferimento giri/posiz."
+Channel_Diag(26) = "Comunicazione int. disturbata"
+Channel_Diag(27) = "Anomalia alimentatore"
+Channel_Diag(28) = "Anomalia regolatore freno"
+Channel_Diag(29) = "Errore stato segnale esterno"
+Channel_Diag(30) = "Anomalia applicazione/funzione"
+Channel_Diag(31) = "Errore parametrizzazione / MIS"
+
+; max text len 256      "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456"
+Channel_Diag_Help(16) = "È stato rilevato un comportamento errato dell'hardware o del software. Eseguire un POWER ON del componente interessato. Se il problema si verifica nuovamente, contattare la hotline."
+Channel_Diag_Help(17) = "Si è verificato un errore nell'alimentazione di rete (caduta di fase, picco di tensione, ...). Verificare: rete/fusibili, tensione di collegamento, cablaggio, temperatura del filtro di rete, progettazione (tipo di filtro, alimentatore, ...)."
+Channel_Diag_Help(18) = "La tensione del circuito intermedio ha assunto un valore troppo alto. Verificare il dimensionamento dell'impianto (rete, bobine, tensioni). Controllare le impostazioni dell'alimentazione."
+Channel_Diag_Help(19) = "È stato rilevato uno stato operativo non consentito dell'elettronica di potenza (sovracorrente, sovratemperatura, guasto dei moduli IGBT, ...). Verificare il rispetto dei cicli del carico ammessi. Controllare le temperature ambiente (ventilatore)."
+Channel_Diag_Help(20) = "La temperatura del componente ha superato il limite massimo consentito. Controllare la temperatura ambiente/ventilazione dell'armadio."
+Channel_Diag_Help(21) = "È stato rilevato un guasto verso terra o un cortocircuito di fase nelle parti di potenza o negli avvolgimenti del motore. Controllare il collegamento dei cavi di potenza. Verificare il motore."
+Channel_Diag_Help(22) = "Il motore è stato fatto funzionare al di là dei limiti consentiti (temperatura, corrente, coppia, ...). Verificare i cicli di carico e le limitazioni impostate. Controllare la temperatura ambiente/ventilazione del motore."
+Channel_Diag_Help(23) = "La comunicazione con il controllore sovraordinato (interfaccia interna, PROFIBUS, PROFINET, ...) è disturbata o interrotta. Verificare lo stato del controllore sovraordinato, il collegamento/cablaggio di comunicazione e la progettazione/i cicli del bus."
+Channel_Diag_Help(24) = "Un dispositivo di monitoraggio del funzionamento sicuro (Safety) ha rilevato un errore."
+Channel_Diag_Help(25) = "Nella valutazione dei segnali dell'encoder (segnali di traccia, tacche di zero, valori assoluti, ...) è stato rilevato uno stato di segnale non consentito. Verificare l'encoder o lo stato dei segnali dell'encoder. Rispettare le frequenze massime ammesse."
+Channel_Diag_Help(26) = "La comunicazione interna tra i componenti SINAMICS è disturbata o interrotta. Verificare il cablaggio DRIVE-CLiQ. Provvedere a un'installazione conforme alle direttive EMC. Rispettare il numero massimo di I/O e di cicli."
+Channel_Diag_Help(27) = "L'alimentazione è disturbata o guasta. Controllare l'alimentazione e l'ambiente (rete, filtri, bobine, fusibili, ...). Verificare la regolazione dell'alimentazione."
+Channel_Diag_Help(28) = "Il Braking Module interno o esterno è guasto o sovraccarico (temperatura). Controllare il collegamento o lo stato del Braking Module. Rispettare il numero ammesso di processi di frenatura e la loro durata."
+Channel_Diag_Help(29) = "Un valore di misura / stato del segnale rilevato da un ingresso (digitale / analogico / temperatura) ha assunto un valore / stato non consentito. Individuare e controllare il segnale interessato. Verificare le soglie impostate."
+Channel_Diag_Help(30) = "L'applicazione o la funzione tecnologica ha superato una limitazione impostata (di posizione, velocità, coppia, ...). Individuare e controllare la limitazione interessata. Controllare l'impostazione del valore di riferimento del controllore sovraordinato."
+Channel_Diag_Help(31) = "È stato rilevato un errore nella parametrizzazione o sequenza MIS o la parametrizzazione non è adatta per la configurazione apparecchio. Individuare la causa precisa dell'errore con il tool di MIS, adattare la parametrizzazione/configurazione apparecchio."
+
+;====================================================================================

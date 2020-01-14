@@ -1,0 +1,170 @@
+; (c) 2001   Siemens AG A&D SD
+;
+; Profibus-DP     Geraetestammdaten for MICROMASTER 4
+;
+;                 MLFB: 6SE6400-1PB00-0AA0 (HW Release B07/B08 for MM420/MM430/MM440)
+;                       6SE6401-1PB00-0AA0 (HW Release A06 for CM411)
+;
+; Author:            Ulrich Rother
+; Date of Creation:  17.01.2001
+; Changes:
+;         07.08.2001 revision and hardware release changed for certification
+;         21.09.2001 "A04" with modules for MM440
+;         29.11.2001 GSD Revision 3 with DPV1 extensions
+;         14.12.2001 orthographic correction
+;         11.02.2002 added MM430 and CM411, text only
+;         11.04.2002 filename changed and info_text added
+;         06.02.2009 Corrected MLFB
+;                    Updated the Revision and Hardware Release
+;
+;=====================================================================================
+;
+;--- general ---
+;
+#Profibus_DP
+;
+GSD_Revision        = 4
+Vendor_Name         = "Siemens AG A&D"
+Model_Name          = "MICROMASTER 4"
+Revision            = "B07/08"
+Ident_Number        = 0x80B5
+Protocol_Ident      = 0
+Station_Type        = 0
+FMS_supp            = 0
+Hardware_Release    = "B07/08"
+Software_Release    = "V1.0"
+;
+9.6_supp            = 1
+19.2_supp           = 1
+45.45_supp          = 1
+93.75_supp          = 1
+187.5_supp          = 1
+500_supp            = 1
+1.5M_supp           = 1
+3M_supp             = 1
+6M_supp             = 1
+12M_supp            = 1
+;
+MaxTsdr_9.6         = 40
+MaxTsdr_19.2        = 40
+MaxTsdr_45.45       = 40
+MaxTsdr_93.75       = 40
+MaxTsdr_187.5       = 40
+MaxTsdr_500         = 40
+MaxTsdr_1.5M        = 40
+MaxTsdr_3M          = 50
+MaxTsdr_6M          = 100
+MaxTsdr_12M         = 200
+;
+Redundancy          = 0
+Repeater_Ctrl_Sig   = 2
+24V_Pins            = 0
+Implementation_Type = "DPC31"
+Bitmap_Device       = "asi80b5n"
+;
+OrderNumber="6SE640X-1PB00-0AA0"
+;
+;--- slave basic ---
+;
+Freeze_Mode_supp        = 1
+Sync_Mode_supp          = 1
+Auto_Baud_supp          = 1
+Set_Slave_Add_supp      = 0
+User_Prm_Data_Len       = 3
+User_Prm_Data           = 0x00,0x00,0x00
+Min_Slave_Intervall     = 1
+;
+Modular_Station         = 1
+Max_Module              = 1
+Max_Input_Len           = 28
+Max_Output_Len          = 28
+Max_Data_Len            = 56
+;
+Fail_Safe               = 1
+Max_Diag_Data_Len       = 6
+Modul_Offset            = 0
+Slave_Family            = 1@TdF@SIMOVERT
+;Max_User_Prm_Data_Len   = 0
+;
+;--- slave extensions (GSD R3) ---
+;
+Info_Text               = "PROFIBUS module with standard functionality operational with MICROMASTER 4 / COMBIMASTER 4"
+DPV1_Slave              = 1
+C1_Read_Write_supp      = 1
+C2_Read_Write_supp      = 1
+C1_Max_Data_Len         = 240
+C2_Max_Data_Len         = 240
+C1_Response_Timeout     = 1
+C2_Response_Timeout     = 1
+C1_Read_Write_required  = 0
+C2_Read_Write_required  = 0
+C2_Max_Count_Channels   = 2
+Max_Initiate_PDU_Length = 52
+DPV1_Data_Types         = 0
+WD_Base_1ms_supp        = 1
+Check_Cfg_Mode          = 0
+Publisher_supp          = 1
+;
+;--- module definitions ---
+;
+Module = "Standard Telegram 1           " 0x00, 0xE1, 0xD1
+20
+;Text_Item = "Standard telegram according to PROFIDrive V3"
+EndModule
+Module = "4 PKW,  2 PZD  (PPO 1)        " 0xF3, 0xF1
+21
+;Text_Item = "PPO according to PROFIDrive V2"
+EndModule
+Module = "0 PKW,  2 PZD  (PPO 3)        " 0x00, 0xF1
+22
+EndModule
+Module = "4 PKW,  4 PZD whole cons.     " 0xF3, 0xE3, 0xD3
+41
+EndModule
+Module = "4 PKW,  4 PZD word cons.      " 0xF3, 0x63, 0x53
+42
+EndModule
+Module = "0 PKW,  4 PZD whole cons.     " 0x00, 0xE3, 0xD3
+43
+EndModule
+Module = "0 PKW,  4 PZD word cons.      " 0x00, 0x63, 0x53
+44
+EndModule
+;
+;--- MM430/MM440 only
+;
+Module = "-- MM430/440 only: PZD > 4 -- " 0x00
+60
+EndModule
+Module = "4 PKW,  6 PZD  (PPO 2)        " 0xF3, 0xF5
+61
+EndModule
+Module = "4 PKW,  6 PZD  word cons.     " 0xF3, 0x65, 0x55
+62
+EndModule
+Module = "0 PKW,  6 PZD  (PPO 4)        " 0x00, 0xF5
+63
+EndModule
+Module = "0 PKW,  6 PZD  word cons.     " 0x00, 0x65, 0x55
+64
+EndModule
+Module = "4 PKW,  8 PZD  whole cons.    " 0xF3, 0xE7, 0xD7
+81
+EndModule
+Module = "4 PKW,  8 PZD  word cons.     " 0xF3, 0x67, 0x57
+82
+EndModule
+Module = "0 PKW,  8 PZD  whole cons.    " 0x00, 0xE7, 0xD7
+83
+EndModule
+Module = "0 PKW,  8 PZD  word cons.     " 0x00, 0x67, 0x57
+84
+EndModule
+
+
+
+
+
+
+
+
